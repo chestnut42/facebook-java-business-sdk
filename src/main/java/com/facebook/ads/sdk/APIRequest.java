@@ -261,8 +261,11 @@ public class APIRequest<T extends APINode> {
 
   protected void requestFieldInternal(String field, boolean value) {
     if (returnFields == null) returnFields = new ArrayList<String>();
-    if (value == true && !returnFields.contains(field)) returnFields.add(field);
-    else returnFields.remove(field);
+    if (value) {
+      if (!returnFields.contains(field)) returnFields.add(field);
+    } else {
+      returnFields.remove(field);
+    }
   }
 
   private Map<String, Object> getAllParams(Map<String, Object> extraParams) {
