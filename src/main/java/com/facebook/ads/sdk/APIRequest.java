@@ -23,16 +23,14 @@
 package com.facebook.ads.sdk;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.net.URL;
 import java.net.URLEncoder;
-import javax.net.ssl.HttpsURLConnection;
-import org.omg.CORBA.Request;
 
 import java.lang.reflect.Modifier;
 import java.lang.StringBuilder;
@@ -278,7 +276,7 @@ public class APIRequest<T extends APINode> {
     return allParams;
   }
 
-  private static String readResponse(HttpsURLConnection con) throws APIException, IOException {
+  private static String readResponse(HttpURLConnection con) throws APIException, IOException {
     try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
       StringBuilder response = new StringBuilder();
 
@@ -515,7 +513,7 @@ public class APIRequest<T extends APINode> {
       URL url = new URL(RequestHelper.constructUrlString(apiUrl, allParams));
       context.log("Request:");
       context.log("GET: " + url.toString());
-      HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+      HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
       con.setRequestMethod("GET");
       con.setRequestProperty("User-Agent", USER_AGENT);
@@ -528,7 +526,7 @@ public class APIRequest<T extends APINode> {
       String boundary = "--------------------------" + new Random().nextLong();
       URL url = new URL(apiUrl);
       context.log("Post: " + url.toString());
-      HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+      HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
       con.setRequestMethod("POST");
       con.setRequestProperty("User-Agent", USER_AGENT);
@@ -580,7 +578,7 @@ public class APIRequest<T extends APINode> {
     public String sendDelete(String apiUrl, Map<String, Object> allParams, APIContext context) throws APIException, IOException {
       URL url = new URL(RequestHelper.constructUrlString(apiUrl, allParams));
       context.log("Delete: " + url.toString());
-      HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+      HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
       con.setRequestMethod("DELETE");
       con.setRequestProperty("User-Agent", USER_AGENT);
